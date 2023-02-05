@@ -13,11 +13,16 @@
     <packaging>pom</packaging>
     <modules>
         <module>heima-leadnews-user</module>
+        <module>heima-leadnews-article</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <description>
+        对微服务模块进行管理
+    </description>
 
     <dependencies>
         <!-- 引入依赖模块 -->

@@ -1,8 +1,9 @@
-package com.heima.user.dtos;
+package com.heima.model.user.dtos;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
+@ApiModel("用户登录DTO")
 @Data
 public class LoginDto {
     @ApiModelProperty(value = "手机号",required = true)

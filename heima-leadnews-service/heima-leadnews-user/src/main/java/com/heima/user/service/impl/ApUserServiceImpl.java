@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.common.enums.AppHttpCodeEnum;
+import com.heima.model.user.dtos.LoginDto;
 import com.heima.model.user.pojo.ApUser;
-import com.heima.user.dtos.LoginDto;
 import com.heima.user.mapper.ApUserMapper;
 import com.heima.user.service.ApUserService;
 import com.heima.utils.common.AppJwtUtil;
@@ -29,8 +29,9 @@ public class ApUserServiceImpl extends ServiceImpl<ApUserMapper, ApUser> impleme
             }
             String salt = apUser.getSalt();
             String password = dto.getPassword();
-            DigestUtils.md5DigestAsHex((salt + password).getBytes());
-            if (!password.equals(apUser.getPassword())) {
+            String psw = DigestUtils.md5DigestAsHex((salt + password).getBytes());
+            System.out.println(psw);
+            if (!psw.equals(apUser.getPassword())) {
                 return ResponseResult.errorResult(AppHttpCodeEnum.LOGIN_PASSWORD_ERROR);
             }
             Map<String, Object> map = new HashMap<>();

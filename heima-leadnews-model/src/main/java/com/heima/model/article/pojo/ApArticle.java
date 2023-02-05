@@ -1,4 +1,4 @@
-package com.heima.model.article.pojos;
+package com.heima.model.article.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @TableName("ap_article")
 public class ApArticle implements Serializable {
-    @TableId(value = "id",type = IdType.ID_WORKER)
+    @TableId(value = "id",type = IdType.ASSIGN_ID)
     private Long id;
     private String title;
     @TableField("author_id")

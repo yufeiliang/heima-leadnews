@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -16,7 +17,9 @@ import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
-public class AuthorizeFilter implements Ordered, GlobalFilter {
+@Order(1)
+//Ordered,
+public class AuthorizeFilter implements  GlobalFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
@@ -47,8 +50,8 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
         return chain.filter(exchange);
     }
 
-    @Override
-    public int getOrder() {
-        return 0;
-    }
+//    @Override
+//    public int getOrder() {
+//        return 0;
+//    }
 }
