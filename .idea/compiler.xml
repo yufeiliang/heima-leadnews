@@ -10,6 +10,7 @@
         <module name="heima-file-starter" />
         <module name="heima-leadnews-wemedia-gateway" />
         <module name="heima-leadnews-utils" />
+        <module name="heima-leadnews-wemedia" />
         <module name="heima-leadnews-feign-api" />
         <module name="heima-leadnews-app-gateway" />
         <module name="heima-leadnews-admin-gateway" />
@@ -31,10 +32,11 @@
       <module name="heima-leadnews-feign-api" options="-parameters" />
       <module name="heima-leadnews-gateway" options="" />
       <module name="heima-leadnews-model" options="-parameters" />
-      <module name="heima-leadnews-service" options="-parameters" />
+      <module name="heima-leadnews-service" options="" />
       <module name="heima-leadnews-test" options="" />
       <module name="heima-leadnews-user" options="-parameters" />
       <module name="heima-leadnews-utils" options="-parameters" />
+      <module name="heima-leadnews-wemedia" options="-parameters" />
       <module name="heima-leadnews-wemedia-gateway" options="-parameters" />
     </option>
   </component>
