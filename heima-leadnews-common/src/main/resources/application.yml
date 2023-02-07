@@ -6,4 +6,8 @@ server:
   tomcat:
     uri-encoding: utf-8
 
+#aliyun:
+#  access-key-id: LTAI5tRuRbntuMYWh9WJ71YS
+#  secret: 5izUvriMkI5sUDqwAW46vhVqyqGZQb
+#  scenes: porn,terrorism,ad,qrcode,live,logo
 

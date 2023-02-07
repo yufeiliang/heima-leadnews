@@ -2,6 +2,7 @@ package com.heima.article.controller.v1;
 
 import com.heima.article.service.ApArticleService;
 import com.heima.common.util.ArticleContent;
+import com.heima.model.article.dtos.ArticleDto;
 import com.heima.model.article.dtos.ArticleHomeDto;
 import com.heima.model.article.pojo.ApArticle;
 import com.heima.model.common.dtos.ResponseResult;
@@ -21,6 +22,11 @@ import java.util.List;
 public class ApArticleController {
     @Autowired
     private ApArticleService apArticleService;
+
+    @PostMapping(value = "/save")
+    public ResponseResult save(@RequestBody ArticleDto dto){
+        return apArticleService.saveArticle(dto);
+    }
 
     @PostMapping(value = "/load")
     @ApiOperation("加载首页")

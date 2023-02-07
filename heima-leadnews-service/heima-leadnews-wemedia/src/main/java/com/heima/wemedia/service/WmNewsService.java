@@ -15,7 +15,9 @@ public interface WmNewsService extends IService<WmNews> {
      */
     public ResponseResult findAll(WmNewsPageReqDto dto);
 
-    ResponseResult submitNews(WmNewsDto dto);
+    ResponseResult submitNews(WmNewsDto dto) throws Exception;
 
     ResponseResult One(Long id);
+
+    ResponseResult downOrUp(WmNews wmNews);
 }

@@ -10,4 +10,8 @@ public interface WmMaterialService extends IService<WmMaterial> {
     ResponseResult uploadPicture(MultipartFile multipartFile);
 
     ResponseResult listWM(WmMaterialDto wmMaterialDto);
+
+    ResponseResult collect(Long id);
+
+    ResponseResult cancelCollect(Long id);
 }

@@ -3,6 +3,7 @@ package com.heima.wemedia.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -18,6 +19,7 @@ import com.heima.utils.thread.WmThreadLocalUtil;
 import com.heima.wemedia.mapper.WmMaterialMapper;
 import com.heima.wemedia.mapper.WmNewsMapper;
 import com.heima.wemedia.mapper.WmNewsMaterialMapper;
+import com.heima.wemedia.service.WmNewsAutoScanService;
 import com.heima.wemedia.service.WmNewsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +44,8 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
     private WmMaterialMapper wmMaterialMapper;
     @Autowired
     private WmNewsMapper wmNewsMapper;
+    @Autowired
+    private WmNewsAutoScanService wmNewsAutoScanService;
 
     /**
      * 查询文章
@@ -104,7 +108,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
     }
 
     @Override
-    public ResponseResult submitNews(WmNewsDto dto) {
+    public ResponseResult submitNews(WmNewsDto dto) throws Exception {
         //判断参数
         if (dto.getContent() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
@@ -116,6 +120,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         WmNews wmNews = new WmNews();
         BeanUtils.copyProperties(dto, wmNews);
 
+        wmNews.setCreatedTime(new Date());
 
         //封装images到wmnews实体中
         List<String> images = dto.getImages();
@@ -144,6 +149,9 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         //4.2 封面图片与文章的关系
         fengmianImageToNews(wmNews, dto, imageList, (short) 1);
 
+        //审核文章
+        wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
+
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
     }
 
@@ -151,7 +159,21 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
     public ResponseResult One(Long id) {
         WmNews news = wmNewsMapper.selectOne(Wrappers.<WmNews>lambdaQuery()
                 .eq(WmNews::getId, id));
+
         return ResponseResult.okResult(news);
+    }
+
+    @Override
+    public ResponseResult downOrUp(WmNews wmNews) {
+
+        if (ObjectUtils.isNotNull(wmNews)) {
+            WmNews news = wmNewsMapper
+                    .selectOne(Wrappers.<WmNews>lambdaQuery()
+                    .eq(WmNews::getId, wmNews.getId()));
+            news.setEnable(wmNews.getEnable());
+            wmNewsMapper.updateById(news);
+        }
+        return ResponseResult.okResult(null);
     }
 
     /**

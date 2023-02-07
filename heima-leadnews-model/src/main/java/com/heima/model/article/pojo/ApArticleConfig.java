@@ -11,8 +11,20 @@ import java.io.Serializable;
 @Data
 @TableName("ap_article_config")
 public class ApArticleConfig implements Serializable {
+    public ApArticleConfig(Long articleId){
+        this.articleId = articleId;
+        this.isComment = true;
+        this.isForward = true;
+        this.isDelete = false;
+        this.isDown = false;
+    }
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
+    /**
+     * 文章id
+     */
+    @TableField("article_id")
+    private Long articleId;
     @TableField("is_comment")
     private Boolean isComment;
     @TableField("is_forward")

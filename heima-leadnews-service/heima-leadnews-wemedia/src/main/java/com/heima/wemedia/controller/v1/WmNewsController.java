@@ -4,6 +4,7 @@ package com.heima.wemedia.controller.v1;
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.wemedia.dtos.WmNewsDto;
 import com.heima.model.wemedia.dtos.WmNewsPageReqDto;
+import com.heima.model.wemedia.pojo.WmNews;
 import com.heima.wemedia.service.WmNewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,16 @@ public class WmNewsController {
     }
 
     @PostMapping("/submit")
-    public ResponseResult submitNews(@RequestBody WmNewsDto dto){
+    public ResponseResult submitNews(@RequestBody WmNewsDto dto) throws Exception {
         return wmNewsService.submitNews(dto);
     }
     @GetMapping("/one/{id}")
     public ResponseResult one(@PathVariable Long id){
         return wmNewsService.One(id);
+    }
+    @PostMapping("/down_or_up")
+    public ResponseResult downOrUp(@RequestBody WmNews wmNews){
+        return wmNewsService.downOrUp(wmNews);
     }
 
 }
